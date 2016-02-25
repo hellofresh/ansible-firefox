@@ -8,7 +8,8 @@ An ansible role that installs multiple version of firefox.
 ```yaml
 firefox_version         : 
                             - "40.0"
-# default version  firefox
+                            - "37.0"
+# default version of firefox
 firefox_default         : "{{ firefox_version[0] }}"
 firefox_link_dir        : "/usr/local/bin"
 firefox_instalL_dir     : "/opt/firefox/"
