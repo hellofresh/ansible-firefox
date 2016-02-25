@@ -1,0 +1,17 @@
+---
+# meta file for ansible
+galaxy_info:
+  author: Adham Helal
+  description: Install manage firefox
+  license: MIT
+  min_ansible_version: 1.9
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+  categories:
+  - web
+dependencies: []

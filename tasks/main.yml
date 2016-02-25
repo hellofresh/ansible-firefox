@@ -1,0 +1,50 @@
+---
+
+- name: Get firefox dependencies from apt
+  shell: 'apt-get install -s firefox | grep Inst | grep -v firefox | cut -d" " -f 2'
+  register: firefox_apt_deps
+  changed_when: False
+
+- name: Install firefox dependencies
+  apt: 
+    name="{{ item }}"
+    state="latest"
+  with_items: firefox_apt_deps.stdout_lines
+  when: firefox_apt_deps.stdout_lines is defined
+
+- name: Create temp directory
+  file:
+    path="{{ item }}"
+    state="directory"
+    mode=0755
+  with_items: 
+    - "{{ firefox_tmp_dir }}"
+
+- name: Create firefox install directory
+  file:
+    path="{{ firefox_instalL_dir }}/{{ item }}"
+    state="directory"
+    mode=0755
+  with_items: 
+    - "{{ firefox_version }}"
+
+- name: Get firefox package
+  get_url: 
+    url="{{ firefox_url }}"
+    dest="{{ firefox_tmp_dir }}/{{ firefox_archive }}"
+  with_items: "{{ firefox_version }}"
+
+- name: Extract firefox archive 
+  unarchive: 
+    src="{{ firefox_tmp_dir }}/{{ firefox_archive }}"
+    dest="{{ firefox_instalL_dir }}/{{ item }}"
+    copy=no
+    creates="{{ firefox_instalL_dir }}/{{ item }}/firefox/firefox"
+  with_items: "{{ firefox_version }}"
+
+- name: Link to default version
+  file: 
+    src="{{ firefox_instalL_dir }}/{{ firefox_default }}/firefox/firefox"
+    dest="{{ firefox_link_dir }}/firefox"
+    force=yes
+    state='link'

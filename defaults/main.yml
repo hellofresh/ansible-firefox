@@ -1,0 +1,16 @@
+---
+
+firefox_version         : 
+                            - "40.0"
+                            - "37.0"
+# default version of firefox
+firefox_default         : "{{ firefox_version[0] }}"
+firefox_link_dir        : "/usr/local/bin"
+firefox_instalL_dir     : "/opt/firefox/"
+firefox_tmp_dir         : "/tmp/firefox"
+
+# URL Construction
+firefox_lang            : "en-US"
+firefox_arch            : "linux-x86_64"
+firefox_archive         : "firefox-{{ item }}.tar.bz2"
+firefox_url             : "https://ftp.mozilla.org/pub/firefox/releases/{{ item }}/{{ firefox_arch }}/{{ firefox_lang }}/{{ firefox_archive }}"

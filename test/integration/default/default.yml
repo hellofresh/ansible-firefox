@@ -1,0 +1,13 @@
+---
+- name         : User
+  hosts        : "all"
+  gather_facts : no
+  become       : True
+  connection   : "{{ kitchen_connection | default('local') }}"
+  vars:
+          firefox_version  : 
+                            - "43.0"
+                            - "40.0"
+                            - "37.0"
+  roles        :
+                 - "ansible-firefox"
