@@ -10,7 +10,7 @@
     name="{{ item }}"
     state="latest"
   with_items: firefox_apt_deps.stdout_lines
-  when: firefox_apt_deps.stdout_lines is defined
+  when: firefox_apt_deps.stdout_lines is defined and firefox_apt_deps.stdout_lines|length > 0
 
 - name: Create temp directory
   file:
